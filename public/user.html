@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body style="font-family: sans-serif;">
+        <div id='name'>fetching details...</div>
+        <a href="/logout"><button>logout</button></a>
+    </body>
+    <script>
+        const nameElement = document.getElementById('name');
+        const user = fetch('/getUserDetails').then(res => res.json()).then(data => {
+            if (data.err) {
+                nameElement.innerText = data.err
+            } else {
+                nameElement.innerHTML = `
+            <div><img height='200px' width='200px' src='${data.avatar_url}'></div>
+            <div>Name: ${data.name}</div>
+            <div>Bio: ${data.bio}</div>
+            `
+            }
+        })
+    </script>
+
+</html>
